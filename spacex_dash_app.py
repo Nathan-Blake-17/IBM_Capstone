@@ -42,9 +42,7 @@ app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
                                 html.P("Payload range (Kg):"),
                                 # TASK 3: Add a slider to select payload range
                                 dcc.RangeSlider(id='payload-slider',
-                                                min=0,
-                                                max=10000,
-                                                step=1000,
+                                                min=0, max=10000, step=1000,
                                                 value=[min_payload, max_payload]
                                                 ),
 
@@ -61,7 +59,7 @@ def get_pie_chart(entered_site):
     if entered_site == 'ALL':
         fig = px.pie(filtered_df, values='class',
         names = 'Launch Site',
-        title = 'Success Count for all launch sites')
+        title = 'Total success launches by site')
         return fig
     else:
         filtered_df = spacex_df[spacex_df['Launch Site'] == entered_site]
@@ -81,12 +79,12 @@ def scatter(entered_site, payload):
 
     if entered_site == 'ALL':
         fig = px.scatter(filtered_df, x = 'Payload Mass (kg)', y = 'class', color = 'Booster Version Category',
-                         title = 'Success count on Payload mass for all sites')
+                         title = 'Correlation between Payload and Success for all sites')
         return fig
     else:
         fig = px.scatter(filtered_df[filtered_df['Launch Site'] == entered_site], x = 'Payload Mass (kg)', y = 'class',
                          color = 'Booster Version Category',
-                         title = f"Success count on Payload mass for site {entered_site}")
+                         title = f"Correlation between Payload and Success for site {entered_site}")
         return fig
 
 # Run the app
